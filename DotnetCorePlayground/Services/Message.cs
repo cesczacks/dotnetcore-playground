@@ -9,9 +9,10 @@ namespace DotnetCorePlayground.Services
 	{
 		public int MessageCount { get; set; }
 
-		public void MessageCountIncrement()
+		public IMessage MessageCountIncrement()
 		{
 			MessageCount++;
+			return this;
 		}
 
 		public string PrintMessage() => $"Hello, this is a message from {nameof(Message)}";

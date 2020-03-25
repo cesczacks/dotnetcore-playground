@@ -14,6 +14,7 @@ namespace DotnetCorePlayground.Controllers
 
 		private readonly IMessage _messageService;
 
+		//使用构造器，注入IMessage
 		public MessageController(IMessage messageService)
 		{
 			_messageService = messageService;
@@ -28,8 +29,7 @@ namespace DotnetCorePlayground.Controllers
 		[HttpGet("GetMessageCount")]
 		public int GetMessageCount() 
 		{
-			_messageService.MessageCountIncrement();
-			return _messageService.MessageCount;
+			return _messageService.MessageCountIncrement().MessageCount;
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace DotnetCorePlayground.Services
 	{
 		int MessageCount { get; set; }
 
-		void MessageCountIncrement();
+		IMessage MessageCountIncrement();
 
 		string PrintMessage();
 	}
