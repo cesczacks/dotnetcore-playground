@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +15,10 @@ using Microsoft.Extensions.Logging;
 namespace DotnetCorePlayground
 {
 	/// <summary>
-	/// IConfiguration: ÅäÖÃÎÄ¼ş£¨appsettings.xxx.json£©
-	/// IServiceCollection: ÒÀÀµ×¢Èë
-	/// IApplicationBuilder£ºÅäÖÃÖĞ¼ä¼ş
-	/// IWebHostEnvironment£º»·¾³ÅäÖÃ
+	/// IConfiguration: é…ç½®æ–‡ä»¶ï¼ˆappsettings.xxx.jsonï¼‰
+	/// IServiceCollection: ä¾èµ–æ³¨å…¥
+	/// IApplicationBuilderï¼šé…ç½®ä¸­é—´ä»¶
+	/// IWebHostEnvironmentï¼šç¯å¢ƒé…ç½®
 	/// </summary>
 	public class Startup
 	{
@@ -32,16 +32,16 @@ namespace DotnetCorePlayground
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			// È¨ÖØ AddSingleton¡úAddTransient¡úAddScoped
+			// æƒé‡ AddSingletonâ†’AddTransientâ†’AddScoped
 			// ------------------------------
-			// AddSingletonµÄÉúÃüÖÜÆÚ£º
-			// ÏîÄ¿Æô¶¯ - ÏîÄ¿¹Ø±Õ   Ïàµ±ÓÚ¾²Ì¬Àà Ö»»áÓĞÒ»¸ö
+			// AddSingletonçš„ç”Ÿå‘½å‘¨æœŸï¼š
+			// é¡¹ç›®å¯åŠ¨ - é¡¹ç›®å…³é—­   ç›¸å½“äºé™æ€ç±» åªä¼šæœ‰ä¸€ä¸ª
 			// ------------------------------
-			// AddScopedµÄÉúÃüÖÜÆÚ£º
-			// ÇëÇó¿ªÊ¼ - ÇëÇó½áÊø  ÔÚÕâ´ÎÇëÇóÖĞ»ñÈ¡µÄ¶ÔÏó¶¼ÊÇÍ¬Ò»¸ö
+			// AddScopedçš„ç”Ÿå‘½å‘¨æœŸï¼š
+			// è¯·æ±‚å¼€å§‹ - è¯·æ±‚ç»“æŸ  åœ¨è¿™æ¬¡è¯·æ±‚ä¸­è·å–çš„å¯¹è±¡éƒ½æ˜¯åŒä¸€ä¸ª
 			// ------------------------------
-			// AddTransientµÄÉúÃüÖÜÆÚ£º
-			// ÇëÇó»ñÈ¡ -£¨GC»ØÊÕ - Ö÷¶¯ÊÍ·Å£© Ã¿Ò»´Î»ñÈ¡µÄ¶ÔÏó¶¼²»ÊÇÍ¬Ò»¸ö
+			// AddTransientçš„ç”Ÿå‘½å‘¨æœŸï¼š
+			// è¯·æ±‚è·å– -ï¼ˆGCå›æ”¶ - ä¸»åŠ¨é‡Šæ”¾ï¼‰ æ¯ä¸€æ¬¡è·å–çš„å¯¹è±¡éƒ½ä¸æ˜¯åŒä¸€ä¸ª
 
 			services.AddControllers();
 			services.AddSingleton<IMessage, Message>();
