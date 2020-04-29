@@ -1,4 +1,5 @@
-﻿using DotnetCorePlayground.Models;
+﻿using System.Reflection;
+using DotnetCorePlayground.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetCorePlayground
@@ -9,6 +10,12 @@ namespace DotnetCorePlayground
 
 		public DotnetCorePlaygroundDbContext(DbContextOptions options) : base(options)
 		{
+		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			var assemblyWithConfigurations = GetType().Assembly;
+			modelBuilder.ApplyConfigurationsFromAssembly(assemblyWithConfigurations);
 		}
 	}
 }

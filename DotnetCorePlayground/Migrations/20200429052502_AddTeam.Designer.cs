@@ -3,14 +3,16 @@ using DotnetCorePlayground;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotnetCorePlayground.Migrations
 {
     [DbContext(typeof(DotnetCorePlaygroundDbContext))]
-    partial class DotnetCorePlaygroundDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200429052502_AddTeam")]
+    partial class AddTeam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
