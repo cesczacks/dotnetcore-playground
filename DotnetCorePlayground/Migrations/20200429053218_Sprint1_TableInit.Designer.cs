@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotnetCorePlayground.Migrations
 {
     [DbContext(typeof(DotnetCorePlaygroundDbContext))]
-    [Migration("20200429040618_Initialization")]
-    partial class Initialization
+    [Migration("20200429053218_Sprint1_TableInit")]
+    partial class Sprint1_TableInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,37 @@ namespace DotnetCorePlayground.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DotnetCorePlayground.Models.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasMaxLength(50)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Id", "Name");
+
+                    b.ToTable("Team");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Arsenal"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Liverpool"
+                        });
+                });
 
             modelBuilder.Entity("DotnetCorePlayground.Models.User", b =>
                 {

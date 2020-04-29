@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DotnetCorePlayground.Models
 {
-	public class User : IEntityBase
+	public class Permission : IEntityBase
 	{
 		public int Id { get; set; }
 
 		public string Name { get; set; }
 
-		public string Gender { get; set; }
+		public bool Flag { get; set; }
 	}
 
-	public class UserConfiguration : IEntityTypeConfiguration<User>
+	public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 	{
-		public void Configure(EntityTypeBuilder<User> builder)
+		public void Configure(EntityTypeBuilder<Permission> builder)
 		{
-			builder.HasKey(x => x.Id);
+			
 		}
 	}
 }

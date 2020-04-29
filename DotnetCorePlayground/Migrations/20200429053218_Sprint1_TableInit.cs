@@ -2,7 +2,7 @@
 
 namespace DotnetCorePlayground.Migrations
 {
-    public partial class AddTeam : Migration
+    public partial class Sprint1_TableInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,20 @@ namespace DotnetCorePlayground.Migrations
                     table.UniqueConstraint("AK_Team_Id_Name", x => new { x.Id, x.Name });
                 });
 
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Team",
                 columns: new[] { "Id", "Name" },
@@ -35,6 +49,9 @@ namespace DotnetCorePlayground.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Team");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }
