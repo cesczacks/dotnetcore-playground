@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DotnetCorePlayground.Services;
+﻿using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace DotnetCorePlayground
 {
@@ -44,9 +38,17 @@ namespace DotnetCorePlayground
 			// 请求获取 -（GC回收 - 主动释放） 每一次获取的对象都不是同一个
 
 			services.AddControllers();
-			services.AddSingleton<IMessage, Message>();
-			// services.AddTransient<IMessage, MessagePlus>();
+			// services.AddSingleton<IMessage, Message>();
+			services.AddTransient<IMessage, MessagePlus>();
 			// services.AddScoped<IMessage, MessagePlus>();
+
+			// 指定DB Context
+			services.AddDbContext<DotnetCorePlaygroundDbContext>(options =>
+			{
+				var connectionString = Configuration.GetConnectionString("Default");
+				options.UseSqlServer(connectionString);
+			});
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

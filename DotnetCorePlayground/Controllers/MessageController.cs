@@ -1,9 +1,5 @@
 ﻿using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DotnetCorePlayground.Controllers
 {
@@ -14,7 +10,7 @@ namespace DotnetCorePlayground.Controllers
 
 		private readonly IMessage _messageService;
 
-		//使用构造器，注入IMessage
+		// 使用构造器，注入IMessage
 		public MessageController(IMessage messageService)
 		{
 			_messageService = messageService;

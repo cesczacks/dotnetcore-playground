@@ -2,9 +2,6 @@
 using DotnetCorePlayground.Services;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DotnetCorePlaygroundTests
 {
@@ -24,7 +21,7 @@ namespace DotnetCorePlaygroundTests
 			var result = mockController.GetMessage();
 
 			// ASSERT
-			Assert.AreEqual("Controller in tests....", result);
+			Assert.AreEqual("XXX.", result);
 		}
 	}
 }
