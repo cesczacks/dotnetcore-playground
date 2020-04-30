@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace DotnetCorePlayground
 {
@@ -49,6 +50,10 @@ namespace DotnetCorePlayground
 				options.UseSqlServer(connectionString);
 			});
 
+			services.AddSwaggerGen(swagger =>
+			{
+				swagger.SwaggerDoc("v1", new OpenApiInfo{ Title = "DotNet Core Playground"});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +63,13 @@ namespace DotnetCorePlayground
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			// 配置Swagger
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNet Core Playground");
+			});
 
 			app.UseHttpsRedirection();
 
