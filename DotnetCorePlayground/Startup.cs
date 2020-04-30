@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using DotnetCorePlayground.Models;
 using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +43,8 @@ namespace DotnetCorePlayground
 			// services.AddSingleton<IMessage, Message>();
 			services.AddTransient<IMessage, MessagePlus>();
 			// services.AddScoped<IMessage, MessagePlus>();
+
+			services.AddTransient<IDataReader<Team>, DataReader<Team>>();
 
 			// 指定DB Context
 			services.AddDbContext<DotnetCorePlaygroundDbContext>(options =>

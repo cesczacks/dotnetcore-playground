@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DotnetCorePlayground.Models;
+﻿using DotnetCorePlayground.Models;
+using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DotnetCorePlayground.Controllers
 {
@@ -12,11 +13,11 @@ namespace DotnetCorePlayground.Controllers
 	[Route("[controller]")]
 	public class TeamController
 	{
-		private readonly DotnetCorePlaygroundDbContext _context;
+		private readonly IDataReader<Team> _teamDataReader;
 
-		public TeamController(DotnetCorePlaygroundDbContext context)
+		public TeamController(IDataReader<Team> teamDataReader)
 		{
-			_context = context;
+			_teamDataReader = teamDataReader;
 		}
 
 		/// <summary>
@@ -27,10 +28,9 @@ namespace DotnetCorePlayground.Controllers
 		[HttpGet("{id}")]
 		public ActionResult<List<Team>> Get(int id)
 		{
-			var dataSet = _context.Set<Team>();
-
-			var result = dataSet.Where(x => x.Id == id).ToList();
-
+			var result = _teamDataReader.ReadAsQueryable()
+				.Where(x => x.Id == id)
+				.ToList();
 			return result;
 		}
 	}
