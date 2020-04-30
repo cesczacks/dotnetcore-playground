@@ -21,7 +21,7 @@ namespace DotnetCorePlaygroundTests
 			var result = mockController.GetMessage();
 
 			// ASSERT
-			Assert.AreEqual("Controller in tests....", result);
+			Assert.AreEqual("XXX.", result);
 		}
 	}
 }
