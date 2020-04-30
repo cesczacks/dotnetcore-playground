@@ -1,4 +1,5 @@
-﻿using DotnetCorePlayground.Services;
+﻿using System.IO;
+using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,7 @@ namespace DotnetCorePlayground
 			services.AddSwaggerGen(swagger =>
 			{
 				swagger.SwaggerDoc("v1", new OpenApiInfo{ Title = "DotNet Core Playground"});
+				swagger.IncludeXmlComments("bin\\Debug\\netcoreapp3.1\\DotnetCorePlayground.xml");
 			});
 		}
 
