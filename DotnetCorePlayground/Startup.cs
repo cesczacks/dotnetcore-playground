@@ -2,6 +2,7 @@
 using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,7 +56,7 @@ namespace DotnetCorePlayground
 
 			services.AddSwaggerGen(swagger =>
 			{
-				swagger.SwaggerDoc("v1", new OpenApiInfo{ Title = "DotNet Core Playground"});
+				swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "DotNet Core Playground" });
 				swagger.IncludeXmlComments("bin\\Debug\\netcoreapp3.1\\DotnetCorePlayground.xml");
 			});
 		}
@@ -63,6 +64,11 @@ namespace DotnetCorePlayground
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			// app.Use(async (context, next) =>
+			// {
+			// 	await context.Response.WriteAsync("Run by custom middleware...");
+			// });
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
