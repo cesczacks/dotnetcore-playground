@@ -1,10 +1,13 @@
-﻿using DotnetCorePlayground.Services;
+﻿using DotnetCorePlayground.Models;
+using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace DotnetCorePlayground
 {
@@ -42,6 +45,8 @@ namespace DotnetCorePlayground
 			services.AddTransient<IMessage, MessagePlus>();
 			// services.AddScoped<IMessage, MessagePlus>();
 
+			services.AddTransient<IDataReader<Team>, DataReader<Team>>();
+
 			// 指定DB Context
 			services.AddDbContext<DotnetCorePlaygroundDbContext>(options =>
 			{
@@ -49,15 +54,32 @@ namespace DotnetCorePlayground
 				options.UseSqlServer(connectionString);
 			});
 
+			services.AddSwaggerGen(swagger =>
+			{
+				swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "DotNet Core Playground" });
+				swagger.IncludeXmlComments("bin\\Debug\\netcoreapp3.1\\DotnetCorePlayground.xml");
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			// app.Use(async (context, next) =>
+			// {
+			// 	await context.Response.WriteAsync("Run by custom middleware...");
+			// });
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			// 配置Swagger
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNet Core Playground");
+			});
 
 			app.UseHttpsRedirection();
 
