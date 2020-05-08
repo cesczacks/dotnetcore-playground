@@ -45,6 +45,7 @@ namespace DotnetCorePlayground
 			// services.AddScoped<IMessage, MessagePlus>();
 
 			services.AddTransient<IDataReader<Team>, DataReader<Team>>();
+			services.AddTransient<IDataReader<User>, DataReader<User>>();
 
 			// 指定DB Context
 			services.AddDbContext<DotnetCorePlaygroundDbContext>(options =>
@@ -72,7 +73,7 @@ namespace DotnetCorePlayground
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNet Core Playground");
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(DotnetCorePlayground));
 			});
 
 			app.UseHttpsRedirection();

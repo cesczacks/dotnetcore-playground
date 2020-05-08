@@ -14,10 +14,12 @@ namespace DotnetCorePlayground.Controllers
 	public class TeamController
 	{
 		private readonly IDataReader<Team> _teamDataReader;
+		private readonly IDataReader<User> _userDataReader;
 
-		public TeamController(IDataReader<Team> teamDataReader)
+		public TeamController(IDataReader<Team> teamDataReader, IDataReader<User> userDataReader)
 		{
 			_teamDataReader = teamDataReader;
+			_userDataReader = userDataReader;
 		}
 
 		/// <summary>
@@ -26,12 +28,19 @@ namespace DotnetCorePlayground.Controllers
 		/// <param name="id">The Id column in Team table</param>
 		/// <returns>A single Team</returns>
 		[HttpGet("{id}")]
-		public ActionResult<List<Team>> Get(int id)
+		public ActionResult<Team> Get(int id)
 		{
-			var result = _teamDataReader.ReadAsQueryable()
-				.Where(x => x.Id == id)
-				.ToList();
+			var result = _teamDataReader
+				.ReadAsQueryable()
+				.FirstOrDefault(x => x.Id == id);
+
 			return result;
+		}
+
+		[HttpGet("User")]
+		public ActionResult<List<User>> GetAll()
+		{
+			return _userDataReader.ReadAsQueryable().ToList();
 		}
 	}
 }
