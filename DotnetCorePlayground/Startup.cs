@@ -2,6 +2,7 @@
 using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,6 +65,17 @@ namespace DotnetCorePlayground
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			app.Use(async (context, next) =>
+			{
+				await next.Invoke();
+
+				// After going down the pipeline check if we 404'd. 
+				if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+				{
+					await context.Response.WriteAsync("Woops! We 404'd");
+				}
+			});
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -86,6 +98,8 @@ namespace DotnetCorePlayground
 			{
 				endpoints.MapControllers();
 			});
+
+
 		}
 	}
 }
