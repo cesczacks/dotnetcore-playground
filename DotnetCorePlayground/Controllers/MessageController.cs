@@ -1,5 +1,6 @@
 ﻿using DotnetCorePlayground.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace DotnetCorePlayground.Controllers
 {
@@ -10,10 +11,13 @@ namespace DotnetCorePlayground.Controllers
 
 		private readonly IMessage _messageService;
 
+		private readonly IConfiguration _configuration;
+
 		// 使用构造器，注入IMessage
-		public MessageController(IMessage messageService)
+		public MessageController(IMessage messageService, IConfiguration configuration)
 		{
 			_messageService = messageService;
+			_configuration = configuration;
 		}
 
 		[HttpGet("GetMessage")]
