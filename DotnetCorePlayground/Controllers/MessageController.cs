@@ -31,5 +31,11 @@ namespace DotnetCorePlayground.Controllers
 		{
 			return _messageService.MessageCountIncrement().MessageCount;
 		}
+
+		[HttpGet("Phone")]
+		public string GetPhoneNumber()
+		{
+			return _configuration.GetSection("Contact:Phone").Value;
+		}
 	}
 }
