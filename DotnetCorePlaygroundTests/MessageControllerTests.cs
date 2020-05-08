@@ -2,6 +2,7 @@
 using DotnetCorePlayground.Services;
 using Moq;
 using NUnit.Framework;
+using Microsoft.Extensions.Configuration;
 
 namespace DotnetCorePlaygroundTests
 {
@@ -15,7 +16,7 @@ namespace DotnetCorePlaygroundTests
 			var mockService = new Mock<IMessage>();
 			mockService.Setup(x => x.PrintMessage()).Returns("Controller in tests....");
 
-			var mockController = new MessageController(mockService.Object);
+			var mockController = new MessageController(mockService.Object, new Mock<IConfiguration>().Object);
 
 			// ACT
 			var result = mockController.GetMessage();
