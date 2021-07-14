@@ -1,0 +1,9 @@
+{
+	"name": "qh-datafactory",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "feed16be-1d9c-4ad2-ad2d-1cc158c8879d",
+		"tenantId": "e0793d39-0939-496d-b129-198edd916feb"
+	}
+}
