@@ -11,7 +11,7 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
-		"WhenNewBlobCreated_properties_typeProperties_scope": {
+		"trigger2_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/bc796f12-b7fd-47c0-8911-6207b77f9c58/resourceGroups/qh-study/providers/Microsoft.Storage/storageAccounts/qhstoragea"
 		}
@@ -78,13 +78,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "CopyFromBlobToBlob",
+						"name": "Copy data1",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -138,37 +138,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/WhenNewBlobCreated')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "CopyPipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/blob-a/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('WhenNewBlobCreated_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"name": "[concat(parameters('factoryName'), '/trigger2')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -177,25 +147,24 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "CopyPipeline",
+							"referenceName": "pipeline1",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
 					}
 				],
-				"type": "ScheduleTrigger",
+				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2021-07-14T07:48:00Z",
-						"endTime": "2021-07-14T08:48:00Z",
-						"timeZone": "UTC"
-					}
+					"blobPathBeginsWith": "/blob-a/blobs/",
+					"ignoreEmptyBlobs": false,
+					"scope": "[parameters('trigger2_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline')]"
+				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
 			]
 		}
 	]

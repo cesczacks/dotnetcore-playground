@@ -8,7 +8,7 @@
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
-		"WhenNewBlobCreated_properties_typeProperties_scope": {
+		"trigger2_properties_typeProperties_scope": {
 			"value": "/subscriptions/bc796f12-b7fd-47c0-8911-6207b77f9c58/resourceGroups/qh-study/providers/Microsoft.Storage/storageAccounts/qhstoragea"
 		}
 	}
