@@ -10,6 +10,10 @@
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
+		},
+		"WhenNewBlobCreated_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/bc796f12-b7fd-47c0-8911-6207b77f9c58/resourceGroups/qh-study/providers/Microsoft.Storage/storageAccounts/qhstoragea"
 		}
 	},
 	"variables": {
@@ -43,9 +47,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "emp.txt",
-						"folderPath": "input",
-						"container": "adftutorial"
+						"container": "blob-a"
 					}
 				}
 			},
@@ -67,8 +69,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": "output",
-						"container": "adftutorial"
+						"container": "blob-b"
 					}
 				}
 			},
@@ -134,6 +135,36 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/InputDataset')]",
 				"[concat(variables('factoryId'), '/datasets/OutputDataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WhenNewBlobCreated')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "CopyPipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/blob-a/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('WhenNewBlobCreated_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CopyPipeline')]"
 			]
 		}
 	]
